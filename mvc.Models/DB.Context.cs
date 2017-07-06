@@ -12,6 +12,8 @@ namespace mvc.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class DBContainer : DbContext
     {
@@ -34,5 +36,18 @@ namespace mvc.Models
         public virtual DbSet<SysRole> SysRole { get; set; }
         public virtual DbSet<SysSample> SysSample { get; set; }
         public virtual DbSet<SysUser> SysUser { get; set; }
+    
+        public virtual ObjectResult<P_Sys_GetRightOperate_Result> P_Sys_GetRightOperate(string userId, string url)
+        {
+            var userIdParameter = userId != null ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(string));
+    
+            var urlParameter = url != null ?
+                new ObjectParameter("url", url) :
+                new ObjectParameter("url", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_Sys_GetRightOperate_Result>("P_Sys_GetRightOperate", userIdParameter, urlParameter);
+        }
     }
 }

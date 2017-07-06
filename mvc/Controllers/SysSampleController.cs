@@ -5,7 +5,7 @@ using mvc.Common;
 using mvc.IBLL;
 using mvc.Models.Sys;
 using Microsoft.Practices.Unity;
-
+using mvc.Core;
 
 namespace mvc.Controllers
 {
@@ -47,6 +47,7 @@ namespace mvc.Controllers
         }
 
         #region 创建
+        [SupportFilter]
         public ActionResult Create()
         {
             return View();
