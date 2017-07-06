@@ -9,6 +9,6 @@ namespace mvc.IDAL
 {
     public interface IHomeRepository
     {
-        List<SysModule> GetMenuByPersonId(string moduleId);
+        List<SysModule> GetMenuByPersonId(string personId, string moduleId);
     }
 }

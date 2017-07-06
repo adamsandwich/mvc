@@ -31,24 +31,31 @@ namespace mvc.Controllers
         /// <returns>树</returns>
         public JsonResult GetTree(string id)
         {
-
-            List<SysModule> menus = homeBLL.GetMenuByPersonId(id);
-            var jsonData = (
-                    from m in menus
-                    select new
-                    {
-                        id = m.Id,
-                        text = m.Name,
-                        value = m.Url,
-                        showcheck = false,
-                        complete = false,
-                        isexpand = false,
-                        checkstate = 0,
-                        hasChildren = m.IsLast ? false : true,
-                        Icon = m.Iconic
-                    }
-                ).ToArray();
-            return Json(jsonData, JsonRequestBehavior.AllowGet);
+            if (Session["Account"] != null)
+            {
+                AccountModel account = (AccountModel)Session["Account"];
+                List<SysModule> menus = homeBLL.GetMenuByPersonId(account.Id, id);
+                var jsonData = (
+                        from m in menus
+                        select new
+                        {
+                            id = m.Id,
+                            text = m.Name,
+                            value = m.Url,
+                            showcheck = false,
+                            complete = false,
+                            isexpand = false,
+                            checkstate = 0,
+                            hasChildren = m.IsLast ? false : true,
+                            Icon = m.Iconic
+                        }
+                    ).ToArray();
+                return Json(jsonData, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("0", JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }
