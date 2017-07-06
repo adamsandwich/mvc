@@ -83,7 +83,16 @@
             }
             $("#Loading").show();
 
-            alert(1);
+            $.post('/Account/Login', { UserName: $("#UserName").val(), Password: $("#Password").val(), Code: $("#ValidateCode").val() },
+                function (data) {
+
+                    if (data.type == "1") {
+                        window.location = "/Home/Index"
+                    } else {
+                        $("#mes").html(data.message);
+                    }
+                    $("#Loading").hide();
+                }, "json");
             return false;
         }
 
@@ -95,7 +104,7 @@
         <div class="define-head" style="height: 67px;">
             <div class="define-logo">
                 <div id="LoginTopLine">YmNets.cnblogs.com</div>
-                <div id="LoginBotoomLine">MVC4+EF5.0+EasyUI</div>
+                <div id="LoginBotoomLine">MVC5+EF6.0+EasyUI</div>
             </div>
 
         </div>
