@@ -55,6 +55,7 @@
     <Compile Include="SysModuleOperateRepository.cs" />
     <Compile Include="SysModuleRepository.cs" />
     <Compile Include="SysRightRepository.cs" />
+    <Compile Include="SysRoleRepository.cs" />
     <Compile Include="SysSampleRepository.cs" />
   </ItemGroup>
   <ItemGroup>

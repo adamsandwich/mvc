@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace mvc.Models
+namespace mvc.Models.Sys
 {
     public class AccountModel
     {

@@ -68,6 +68,7 @@
     <Compile Include="SysLogBLL.cs" />
     <Compile Include="SysModuleBLL.cs" />
     <Compile Include="SysModuleOperateBLL.cs" />
+    <Compile Include="SysRoleBLL.cs" />
     <Compile Include="SysSampleBLL.cs" />
     <Compile Include="SysUserBLL.cs" />
   </ItemGroup>

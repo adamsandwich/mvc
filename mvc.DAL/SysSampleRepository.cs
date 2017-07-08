@@ -59,7 +59,7 @@ namespace mvc.DAL
             using (DBContainer db = new DBContainer())
             {
                 db.Set<SysSample>().Attach(entity);
-                db.Entry<SysSample>(entity).State = EntityState.Modified;
+                db.Entry(entity).State = EntityState.Modified;
                 return db.SaveChanges();
             }
         }

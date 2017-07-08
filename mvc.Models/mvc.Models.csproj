@@ -101,6 +101,7 @@
     <Compile Include="Sys\SysLogModel.cs" />
     <Compile Include="Sys\SysModuleModel.cs" />
     <Compile Include="Sys\SysModuleOperateModel.cs" />
+    <Compile Include="Sys\SysRoleModel.cs" />
     <Compile Include="Sys\SysSampleModel.cs" />
   </ItemGroup>
   <ItemGroup>

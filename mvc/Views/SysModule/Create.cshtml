@@ -14,9 +14,7 @@
 <script type="text/javascript">
     $(function () {
         $("#btnSave").click(function () {
-            alert($("form").serialize());
             if ($("form").valid()) {
-                alert(form)
                 $.ajax({
                 url: "@Url.Action("Create")",
                 type: "Post",

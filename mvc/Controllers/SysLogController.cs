@@ -17,7 +17,7 @@ namespace mvc.Controllers
         // GET: /SysLog/
         [Dependency]
         public ISysLogBLL logBLL { get; set; }
-
+        ValidationErrors errors = new ValidationErrors();
 
 
         public ActionResult Index()
@@ -29,7 +29,7 @@ namespace mvc.Controllers
 
         public JsonResult GetList(GridPager pager, string queryStr)
         {
-            List<SysLog> list = logBLL.GetList(ref pager, queryStr);
+            List<SysLogModel> list = logBLL.GetList(ref pager, queryStr);
             var json = new
             {
                 total = pager.totalRows,
@@ -58,18 +58,8 @@ namespace mvc.Controllers
         public ActionResult Details(string id)
         {
 
-            SysLog entity = logBLL.GetById(id);
-            SysLogModel info = new SysLogModel()
-            {
-                Id = entity.Id,
-                Operator = entity.Operator,
-                Message = entity.Message,
-                Result = entity.Result,
-                Type = entity.Type,
-                Module = entity.Module,
-                CreateTime = entity.CreateTime,
-            };
-            return View(info);
+            SysLogModel model = logBLL.GetById(id);
+            return View(model);
         }
 
         #endregion
@@ -79,7 +69,7 @@ namespace mvc.Controllers
         {
             if (!string.IsNullOrWhiteSpace(id))
             {
-                if (logBLL.Delete(id))
+                if (logBLL.Delete(ref errors, id))
                 {
                     return Json(1, JsonRequestBehavior.AllowGet);
                 }

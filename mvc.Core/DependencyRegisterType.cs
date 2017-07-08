@@ -38,6 +38,9 @@ namespace mvc.Core
 
             container.RegisterType<ISysModuleOperateBLL,SysModuleOperateBLL>();
             container.RegisterType<ISysModuleOperateRepository,SysModuleOperateRepository>();
+
+            container.RegisterType<ISysRoleBLL, SysRoleBLL>();
+            container.RegisterType<ISysRoleRepository, SysRoleRepository>();
         }
     }
 }

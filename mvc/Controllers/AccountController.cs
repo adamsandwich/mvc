@@ -2,6 +2,7 @@
 using mvc.Common;
 using mvc.IBLL;
 using mvc.Models;
+using mvc.Models.Sys;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,6 @@ namespace mvc.Controllers
         public ActionResult Index()
         {
             AccountModel account = new AccountModel();
-            account.Id = "admin";
-            account.TrueName = "admin";
             Session["Account"] = account;
             return View();
         }
