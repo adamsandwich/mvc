@@ -21,6 +21,7 @@ namespace mvc.Controllers
         {
             return View();
         }
+        [SupportFilter(ActionName ="Index")]
         public JsonResult GetList(GridPager pager, string queryStr = null)
         {
             List<SysSampleModel> list = m_BLL.GetList(ref pager,queryStr);
@@ -42,7 +43,6 @@ namespace mvc.Controllers
                         }).ToArray()
 
             };
-
             return Json(json, JsonRequestBehavior.AllowGet);
         }
 

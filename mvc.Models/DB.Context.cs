@@ -29,13 +29,13 @@ namespace mvc.Models
     
         public virtual DbSet<SysException> SysException { get; set; }
         public virtual DbSet<SysLog> SysLog { get; set; }
-        public virtual DbSet<SysModule> SysModule { get; set; }
         public virtual DbSet<SysModuleOperate> SysModuleOperate { get; set; }
         public virtual DbSet<SysRight> SysRight { get; set; }
         public virtual DbSet<SysRightOperate> SysRightOperate { get; set; }
         public virtual DbSet<SysRole> SysRole { get; set; }
         public virtual DbSet<SysSample> SysSample { get; set; }
         public virtual DbSet<SysUser> SysUser { get; set; }
+        public virtual DbSet<SysModule> SysModule { get; set; }
     
         public virtual ObjectResult<P_Sys_GetRightOperate_Result> P_Sys_GetRightOperate(string userId, string url)
         {
@@ -48,6 +48,16 @@ namespace mvc.Models
                 new ObjectParameter("url", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_Sys_GetRightOperate_Result>("P_Sys_GetRightOperate", userIdParameter, urlParameter);
+        }
+    
+        public virtual int P_Sys_ClearUnusedRightOperate()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("P_Sys_ClearUnusedRightOperate");
+        }
+    
+        public virtual int P_Sys_InsertSysRight()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("P_Sys_InsertSysRight");
         }
     }
 }

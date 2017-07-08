@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using mvc.Common;
 using mvc.Models;
+using mvc.Models.Sys;
 
 namespace mvc
 {
@@ -70,7 +71,8 @@ namespace mvc
             };
         }
         /// <summary>
-        /// 返回JsonResult.24         /// </summary>
+        /// 返回JsonResult.24         
+        /// </summary>
         /// <param name="data">数据</param>
         /// <param name="behavior">行为</param>
         /// <param name="format">json中dateTime类型的格式</param>
@@ -85,7 +87,8 @@ namespace mvc
             };
         }
         /// <summary>
-        /// 返回JsonResult42         /// </summary>
+        /// 返回JsonResult42         
+        /// </summary>
         /// <param name="data">数据</param>
         /// <param name="format">数据格式</param>
         /// <returns>Json</returns>
@@ -121,6 +124,17 @@ namespace mvc
                 return false;
             }
             return true;
+        }
+        /// <summary>
+        /// 获取当前页或操作访问权限
+        /// </summary>
+        /// <returns>权限列表</returns>
+        public List<permModel> GetPermission()
+        {
+            string filePath = HttpContext.Request.FilePath;
+
+            List<permModel> perm = (List<permModel>)Session[filePath];
+            return perm;
         }
 
     }

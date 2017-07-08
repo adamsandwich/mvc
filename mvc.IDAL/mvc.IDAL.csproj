@@ -44,6 +44,8 @@
     <Compile Include="IHomeRepository.cs" />
     <Compile Include="ISysExceptionRepository.cs" />
     <Compile Include="ISysLogRepository.cs" />
+    <Compile Include="ISysModuleOperateRepository.cs" />
+    <Compile Include="ISysModuleRepository.cs" />
     <Compile Include="ISysRightRepository.cs" />
     <Compile Include="ISysSampleRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

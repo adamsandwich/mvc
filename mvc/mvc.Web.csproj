@@ -150,6 +150,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SysExceptionController.cs" />
     <Compile Include="Controllers\SysLogController.cs" />
+    <Compile Include="Controllers\SysModuleController.cs" />
     <Compile Include="Controllers\SysSampleController.cs" />
     <Compile Include="Core\ExtendMvcHtml.cs" />
     <Compile Include="Core\LogHandler.cs" />
@@ -824,6 +825,10 @@
     <Content Include="Views\SysSample\Details.cshtml" />
     <Content Include="Views\SysSample\Edit.cshtml" />
     <Content Include="Views\SysSample\Index.cshtml" />
+    <Content Include="Views\SysModule\Index.cshtml" />
+    <Content Include="Views\SysModule\Edit.cshtml" />
+    <Content Include="Views\SysModule\Create.cshtml" />
+    <Content Include="Views\SysModule\CreateOpt.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

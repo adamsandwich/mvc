@@ -14,7 +14,6 @@ namespace mvc.Core
 {
     public class SupportFilterAttribute : ActionFilterAttribute
     {
-        [Dependency]
         public ISysUserBLL userBLL{ get; set; }
         public string ActionName { get; set; }
         private string Area;
@@ -75,7 +74,7 @@ namespace mvc.Core
             //URL路径
             string filePath = HttpContext.Current.Request.FilePath;
             AccountModel account = filterContext.HttpContext.Session["Account"] as AccountModel;
-            if (ValiddatePermission(account, controller, action, filePath))
+            if (ValiddatePermission(account, controller, action, filePath)) 
             {
                 return;
             }
@@ -101,9 +100,10 @@ namespace mvc.Core
                 perm = (List<permModel>)HttpContext.Current.Session[filePath];
                 if (perm == null)
                 {
-                    
-                        perm = userBLL.GetPermission(account.Id, controller);//获取当前用户的权限列表
-                        HttpContext.Current.Session[filePath] = perm;//获取的劝降放入会话由Controller调用
+                    UnityContainer container = HttpContext.Current.Application["UnityContainer"] as UnityContainer;
+                    userBLL = container.Resolve<ISysUserBLL>();
+                    perm = userBLL.GetPermission(account.Id, controller);//获取当前用户的权限列表
+                    HttpContext.Current.Session[filePath] = perm;//获取的劝降放入会话由Controller调用
                     
                 }
                 //当用户访问index时，只要权限>0就可以访问
