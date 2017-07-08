@@ -164,7 +164,6 @@
         $("#btnCreate").click(function () {
             var row = $('#List').treegrid('getSelected');
             $("#modalwindow").html("<iframe width='100%' height='98%' scrolling='no' frameborder='0'' src='/SysModule/Create?id=" + (row != null ? row.Id : "0") + "&Ieguid=" + GetGuid() + "'></iframe>");
-            debugger;
             $("#modalwindow").window({ title: '新增', width: 700, height: 400, iconCls: 'icon-add' }).window('open');
         });
         $("#btnEdit").click(function () {

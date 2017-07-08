@@ -1,5 +1,5 @@
 ﻿using mvc.Common;
-using mvc.Models;
+using mvc.Models.Sys;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +10,9 @@ namespace mvc.IBLL
 {
     public interface ISysLogBLL
     {
-        List<SysLog> GetList(ref GridPager pager, string queryStr);
-        SysLog GetById(string id);
-        bool Delete(string id);
+        List<SysLogModel> GetList(ref GridPager pager, string queryStr);
+        List<SysLogModel> CreateModelList(ref GridPager pager, ref IQueryable<SysLog> list);
+        SysLogModel GetById(string id);
+        bool Delete(ref ValidationErrors errors,string id);
     }
 }
