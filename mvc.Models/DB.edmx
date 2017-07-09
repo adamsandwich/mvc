@@ -242,11 +242,19 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="P_Sys_ClearUnusedRightOperate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="P_Sys_GetRightByRoleAndModule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="roleId" Type="varchar" Mode="In" />
+          <Parameter Name="moduleId" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="P_Sys_GetRightOperate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userId" Type="varchar" Mode="In" />
           <Parameter Name="url" Type="varchar" Mode="In" />
         </Function>
         <Function Name="P_Sys_InsertSysRight" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="P_Sys_UpdateSysRightRightFlag" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="moduleId" Type="varchar" Mode="In" />
+          <Parameter Name="roleId" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="DBStoreContainer">
           <EntitySet Name="SysException" EntityType="Self.SysException" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SysLog" EntityType="Self.SysLog" Schema="dbo" store:Type="Tables" />
@@ -331,6 +339,14 @@
           </AssociationSet>
           <FunctionImport Name="P_Sys_ClearUnusedRightOperate" />
           <FunctionImport Name="P_Sys_InsertSysRight" />
+          <FunctionImport Name="P_Sys_GetRightByRoleAndModule" ReturnType="Collection(DB.P_Sys_GetRightByRoleAndModule_Result)">
+            <Parameter Name="roleId" Mode="In" Type="String" />
+            <Parameter Name="moduleId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="P_Sys_UpdateSysRightRightFlag">
+            <Parameter Name="moduleId" Mode="In" Type="String" />
+            <Parameter Name="roleId" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="SysException">
           <Key>
@@ -552,6 +568,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="P_Sys_GetRightByRoleAndModule_Result">
+          <Property Type="String" Name="Id" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="KeyCode" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="ModuleId" Nullable="false" MaxLength="50" />
+          <Property Type="Boolean" Name="isvalid" Nullable="false" />
+          <Property Type="Int32" Name="Sort" Nullable="false" />
+          <Property Type="String" Name="RightId" Nullable="true" MaxLength="100" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -719,6 +744,20 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="P_Sys_ClearUnusedRightOperate" FunctionName="DB.Store.P_Sys_ClearUnusedRightOperate" />
           <FunctionImportMapping FunctionImportName="P_Sys_InsertSysRight" FunctionName="DB.Store.P_Sys_InsertSysRight" />
+          <FunctionImportMapping FunctionImportName="P_Sys_GetRightByRoleAndModule" FunctionName="DB.Store.P_Sys_GetRightByRoleAndModule">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB.P_Sys_GetRightByRoleAndModule_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="KeyCode" ColumnName="KeyCode" />
+                <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+                <ScalarProperty Name="isvalid" ColumnName="isvalid" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="RightId" ColumnName="RightId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="P_Sys_UpdateSysRightRightFlag" FunctionName="DB.Store.P_Sys_UpdateSysRightRightFlag" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

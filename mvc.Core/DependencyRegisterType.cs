@@ -41,6 +41,9 @@ namespace mvc.Core
 
             container.RegisterType<ISysRoleBLL, SysRoleBLL>();
             container.RegisterType<ISysRoleRepository, SysRoleRepository>();
+
+            container.RegisterType<ISysRightBLL, SysRightBLL>();
+            container.RegisterType<ISysRightRepository, SysRightRepository>();
         }
     }
 }

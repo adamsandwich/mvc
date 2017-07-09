@@ -106,3 +106,9 @@ var easyuiPanelOnResize = function (left, top) {
     //$(".window-mask").hide().width(1).height(3000).show();
 };
 $.fn.window.defaults.onResize = easyuiPanelOnResize;
+function SetGridWidthSub(w) {
+    return $(window).width() - w;
+}
+function SetGridHeightSub(h) {
+    return $(window).height() - h
+}

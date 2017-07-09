@@ -65,6 +65,9 @@
       <DependentUpon>DB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="P_Sys_GetRightByRoleAndModule_Result.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
     <Compile Include="P_Sys_GetRightOperate_Result.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
@@ -101,6 +104,8 @@
     <Compile Include="Sys\SysLogModel.cs" />
     <Compile Include="Sys\SysModuleModel.cs" />
     <Compile Include="Sys\SysModuleOperateModel.cs" />
+    <Compile Include="Sys\SysRightModelByRoleAndModuleModel.cs" />
+    <Compile Include="Sys\SysRightOperateModel.cs" />
     <Compile Include="Sys\SysRoleModel.cs" />
     <Compile Include="Sys\SysSampleModel.cs" />
   </ItemGroup>

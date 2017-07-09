@@ -59,5 +59,31 @@ namespace mvc.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("P_Sys_InsertSysRight");
         }
+    
+        public virtual ObjectResult<P_Sys_GetRightByRoleAndModule_Result> P_Sys_GetRightByRoleAndModule(string roleId, string moduleId)
+        {
+            var roleIdParameter = roleId != null ?
+                new ObjectParameter("roleId", roleId) :
+                new ObjectParameter("roleId", typeof(string));
+    
+            var moduleIdParameter = moduleId != null ?
+                new ObjectParameter("moduleId", moduleId) :
+                new ObjectParameter("moduleId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_Sys_GetRightByRoleAndModule_Result>("P_Sys_GetRightByRoleAndModule", roleIdParameter, moduleIdParameter);
+        }
+    
+        public virtual int P_Sys_UpdateSysRightRightFlag(string moduleId, string roleId)
+        {
+            var moduleIdParameter = moduleId != null ?
+                new ObjectParameter("moduleId", moduleId) :
+                new ObjectParameter("moduleId", typeof(string));
+    
+            var roleIdParameter = roleId != null ?
+                new ObjectParameter("roleId", roleId) :
+                new ObjectParameter("roleId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("P_Sys_UpdateSysRightRightFlag", moduleIdParameter, roleIdParameter);
+        }
     }
 }
