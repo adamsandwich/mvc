@@ -16,8 +16,6 @@ namespace mvc.Controllers
         // GET: Account
         public ActionResult Index()
         {
-            AccountModel account = new AccountModel();
-            Session["Account"] = account;
             return View();
         }
         [Dependency]

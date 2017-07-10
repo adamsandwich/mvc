@@ -154,6 +154,7 @@
     <Compile Include="Controllers\SysRightController.cs" />
     <Compile Include="Controllers\SysRoleController.cs" />
     <Compile Include="Controllers\SysSampleController.cs" />
+    <Compile Include="Controllers\SysUserController.cs" />
     <Compile Include="Core\ExtendMvcHtml.cs" />
     <Compile Include="Core\LogHandler.cs" />
     <Compile Include="Core\SupportFilterAttribute.cs" />
@@ -836,6 +837,13 @@
     <Content Include="Views\SysRole\Create.cshtml" />
     <Content Include="Views\SysRole\Edit.cshtml" />
     <Content Include="Views\SysRight\Index.cshtml" />
+    <Content Include="Views\SysUser\Create.cshtml" />
+    <Content Include="Views\SysUser\Edit.cshtml" />
+    <Content Include="Views\SysUser\Index.cshtml" />
+    <Content Include="Views\SysUser\GetRoleByUser.cshtml" />
+    <Content Include="Views\SysRole\GetUserByRole.cshtml" />
+    <Content Include="Views\SysUser\Details.cshtml" />
+    <Content Include="Views\SysRole\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

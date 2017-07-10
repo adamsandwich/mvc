@@ -21,18 +21,26 @@ namespace mvc.BLL
         public List<SysRoleModel> GetList(ref GridPager pager, string queryStr)
         {
 
-            IQueryable<SysRole> queryData = null;
+            IQueryable<SysRole> queryData = m_Rep.GetList(db);
             if (!string.IsNullOrWhiteSpace(queryStr))
             {
-                queryData = m_Rep.GetList(db).Where(a => a.Name.Contains(queryStr));
-            }
-            else
-            {
-                queryData = m_Rep.GetList(db);
+                queryData = queryData.Where(a => a.Name.Contains(queryStr));
             }
             pager.totalRows = queryData.Count();
             queryData = LinqHelper.SortingAndPaging(queryData, pager.sort, pager.order, pager.page, pager.rows);
-            return CreateModelList(ref queryData);
+            List<SysRoleModel> model = (from a in queryData
+                                        select new SysRoleModel()
+                                        {
+                                            Id = a.Id,
+                                            Name = a.Name,
+                                            CreatePerson = a.CreatePerson,
+                                            CreateTime = a.CreateTime,
+                                            Description = a.Description,
+                                            UserHolder=(from r in a.SysUser
+                                                        select r.UserName).ToList()
+
+                                        }).ToList();
+            return model;
         }
         private List<SysRoleModel> CreateModelList(ref IQueryable<SysRole> queryData)
         {
@@ -46,7 +54,7 @@ namespace mvc.BLL
                     Description = r.Description,
                     CreateTime = r.CreateTime,
                     CreatePerson = r.CreatePerson,
-                    UserName = ""
+                    UserHolder=(from a in r.SysUser select a.UserName).ToList()
                 });
             }
             return modelList;
@@ -178,7 +186,45 @@ namespace mvc.BLL
         {
             return m_Rep.IsExist(id);
         }
+        /// <summary>
+        /// 获取角色对应的所有用户
+        /// </summary>
+        /// <param name="roleId">角色id</param>
+        /// <returns></returns>
+        public string GetRefSysUser(string roleId)
+        {
+            string UserName = "";
+            var userList = m_Rep.GetRefSysUser(db, roleId);
+            if (userList != null)
+            {
+                foreach (var user in userList)
+                {
+                    UserName += "[" + user.UserName + "] ";
+                }
+            }
+            return UserName;
+        }
 
+        public IQueryable<P_Sys_GetUserByRoleId_Result> GetUserByRoleId(ref GridPager pager, string roleId)
+        {
+            IQueryable<P_Sys_GetUserByRoleId_Result> queryData = m_Rep.GetUserByRoleId(db, roleId);
+            pager.totalRows = queryData.Count();
+            queryData = m_Rep.GetUserByRoleId(db, roleId);
+            return queryData.Skip((pager.page - 1) * pager.rows).Take(pager.rows);
+        }
+        public bool UpdateSysRoleSysUser(string roleId, string[] userIds)
+        {
+            try
+            {
+                m_Rep.UpdateSysRoleSysUser(roleId, userIds);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                ExceptionHander.WriteException(ex);
+                return false;
+            }
+        }
 
 
     }

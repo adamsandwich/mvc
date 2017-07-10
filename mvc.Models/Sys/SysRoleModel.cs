@@ -22,8 +22,9 @@ namespace mvc.Models.Sys
         [Display(Name = "创建人")]
         public string CreatePerson { get; set; }
         [Display(Name = "拥有的用户")]
-        public string UserName { get; set; }//拥有的用户
+        public List<string> UserHolder { get; set; }//拥有的用户
 
         public string Flag { get; set; }//用户分配角色
+
     }
 }

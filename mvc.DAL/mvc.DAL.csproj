@@ -57,6 +57,7 @@
     <Compile Include="SysRightRepository.cs" />
     <Compile Include="SysRoleRepository.cs" />
     <Compile Include="SysSampleRepository.cs" />
+    <Compile Include="SysUserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\mvc.Common\mvc.Common.csproj">

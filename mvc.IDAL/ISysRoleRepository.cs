@@ -16,5 +16,8 @@ namespace mvc.IDAL
         int Edit(SysRole entity);
         SysRole GetById(string id);
         bool IsExist(string id);
+        IQueryable<SysUser> GetRefSysUser(DBContainer db, string id);
+        IQueryable<P_Sys_GetUserByRoleId_Result> GetUserByRoleId(DBContainer db, string roleId);
+        void UpdateSysRoleSysUser(string roleId, string[] userIds);
     }
 }

@@ -112,3 +112,15 @@ function SetGridWidthSub(w) {
 function SetGridHeightSub(h) {
     return $(window).height() - h
 }
+$(function () {
+    $(window).resize(function () {
+        $('#List').datagrid('resize', {
+            width: $(window).width() - 10,
+            height: SetGridHeightSub(39)
+        }).datagrid('resize', {
+            width: $(window).width() - 10,
+            height: SetGridHeightSub(39)
+        });
+    });
+
+});

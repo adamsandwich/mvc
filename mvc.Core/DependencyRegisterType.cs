@@ -31,6 +31,7 @@ namespace mvc.Core
             container.RegisterType<IAccountRepository, AccountRepository>();
 
             container.RegisterType<ISysUserBLL, SysUserBLL>();
+            container.RegisterType<ISysUserRepository, SysUserRepository>();
             container.RegisterType<ISysRightRepository, SysRightRepository>();
 
             container.RegisterType<ISysModuleBLL,SysModuleBLL>();
@@ -43,7 +44,6 @@ namespace mvc.Core
             container.RegisterType<ISysRoleRepository, SysRoleRepository>();
 
             container.RegisterType<ISysRightBLL, SysRightBLL>();
-            container.RegisterType<ISysRightRepository, SysRightRepository>();
         }
     }
 }

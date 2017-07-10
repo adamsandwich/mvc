@@ -85,5 +85,54 @@ namespace mvc.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("P_Sys_UpdateSysRightRightFlag", moduleIdParameter, roleIdParameter);
         }
+    
+        public virtual ObjectResult<P_Sys_GetRoleByUserId_Result> P_Sys_GetRoleByUserId(string userId)
+        {
+            var userIdParameter = userId != null ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_Sys_GetRoleByUserId_Result>("P_Sys_GetRoleByUserId", userIdParameter);
+        }
+    
+        public virtual int P_Sys_UpdateSysRoleSysUser(string roleId, string userId)
+        {
+            var roleIdParameter = roleId != null ?
+                new ObjectParameter("roleId", roleId) :
+                new ObjectParameter("roleId", typeof(string));
+    
+            var userIdParameter = userId != null ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("P_Sys_UpdateSysRoleSysUser", roleIdParameter, userIdParameter);
+        }
+    
+        public virtual int P_Sys_DeleteSysRoleSysUserByUserId(string userId)
+        {
+            var userIdParameter = userId != null ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("P_Sys_DeleteSysRoleSysUserByUserId", userIdParameter);
+        }
+    
+        public virtual int P_Sys_DeleteSysRoleSysUserByRoleId(string roleId)
+        {
+            var roleIdParameter = roleId != null ?
+                new ObjectParameter("roleId", roleId) :
+                new ObjectParameter("roleId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("P_Sys_DeleteSysRoleSysUserByRoleId", roleIdParameter);
+        }
+    
+        public virtual ObjectResult<P_Sys_GetUserByRoleId_Result> P_Sys_GetUserByRoleId(string roleId)
+        {
+            var roleIdParameter = roleId != null ?
+                new ObjectParameter("RoleId", roleId) :
+                new ObjectParameter("RoleId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_Sys_GetUserByRoleId_Result>("P_Sys_GetUserByRoleId", roleIdParameter);
+        }
     }
 }

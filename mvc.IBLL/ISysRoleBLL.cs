@@ -1,4 +1,5 @@
 ﻿using mvc.Common;
+using mvc.Models;
 using mvc.Models.Sys;
 using System;
 using System.Collections.Generic;
@@ -16,5 +17,7 @@ namespace mvc.IBLL
         bool Edit(ref ValidationErrors errors, SysRoleModel model);
         SysRoleModel GetById(string id);
         bool IsExist(string id);
+        IQueryable<P_Sys_GetUserByRoleId_Result> GetUserByRoleId(ref GridPager pager, string roleId);
+        bool UpdateSysRoleSysUser(string roleId, string[] userIds);
     }
 }

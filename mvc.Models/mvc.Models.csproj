@@ -71,6 +71,12 @@
     <Compile Include="P_Sys_GetRightOperate_Result.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="P_Sys_GetRoleByUserId_Result.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="P_Sys_GetUserByRoleId_Result.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
     <Compile Include="SysException.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
@@ -108,6 +114,7 @@
     <Compile Include="Sys\SysRightOperateModel.cs" />
     <Compile Include="Sys\SysRoleModel.cs" />
     <Compile Include="Sys\SysSampleModel.cs" />
+    <Compile Include="Sys\SysUserModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="DB.edmx">

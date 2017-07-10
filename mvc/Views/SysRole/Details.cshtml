@@ -1,0 +1,46 @@
+﻿@model mvc.Models.Sys.SysRoleModel
+@using mvc.Common;
+@using mvc.Models.Sys;
+@{
+    ViewBag.Title = "详情";
+    Layout = "~/Views/Shared/_Index_LayoutEdit.cshtml";
+    List<permModel> perm = (List<permModel>)ViewBag.Perm;
+    if (perm == null)
+    {
+        perm = new List<permModel>();
+    }
+}
+
+<script type="text/javascript">
+    $("#btnReturn").click(function () {
+        window.parent.frameReturnByClose();
+    });
+});
+</script>
+<div class="mvctool bgb">
+    @Html.ToolButton("btnReturn", "icon-return", "返回", false)
+</div>
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model => model.Id)
+    <table class="fromEditTable setTextWidth300">
+        <tbody>
+            <tr>
+                <td style="width:100px; text-align:right;">
+                    @Html.LabelFor(model => model.Name)：
+                </td>
+                <td style="width:310px">
+                    @Html.EditorFor(model => model.Name)
+                </td>
+            </tr>
+            <tr>
+                <td style="width:100px; text-align:right;">
+                    @Html.LabelFor(model => model.Description)：
+                </td>
+                <td style="width:310px">
+                    @Html.TextAreaFor(model => model.Description, new { style = "height:100px" })
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
