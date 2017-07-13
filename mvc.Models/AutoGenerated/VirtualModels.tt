@@ -1,0 +1,63 @@
+﻿<#@ template language="C#" debug="false" hostspecific="true"#>
+<#@ assembly name="System.Core.dll" #>
+<#@ assembly name="System.Data.dll" #>
+<#@ assembly name="System.Data.DataSetExtensions.dll" #>
+<#@ assembly name="System.Xml.dll" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Data.SqlClient" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.IO" #>
+<#@ include file="EF6.Utility.CS.ttinclude"#> 
+<#@ include file="../../mvc.Models/Common.ttinclude"#>
+<#@ include file="../../mvc.T4/DBHelper.ttinclude"#>
+
+<#@ output extension=".cs"#>
+ <#
+
+const string inputFile = @"../../mvc.Models/DB.edmx";
+var textTransform = DynamicTextTransformation.Create(this);
+var code = new CodeGenerationTools(this);
+var ef = new MetadataTools(this);
+var typeMapper = new TypeMapper(code, ef, textTransform.Errors);
+var    fileManager = EntityFrameworkTemplateFileManager.Create(this);
+var itemCollection = new EdmMetadataLoader(textTransform.Host, textTransform.Errors).CreateEdmItemCollection(inputFile);
+var codeStringGenerator = new CodeStringGenerator(code, typeMapper, ef);
+
+if (!typeMapper.VerifyCaseInsensitiveTypeUniqueness(typeMapper.GetAllGlobalItems(itemCollection), inputFile))
+{
+    return string.Empty;
+}
+
+WriteHeader(codeStringGenerator, fileManager);
+
+foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection))
+{
+    fileManager.StartNewFile("Virtual_"+entity.Name + "Model.cs");
+#>
+using mvc.Models;
+using System;
+namespace mvc.Models.Sys
+{
+	public class Virtual_<#=entity.Name #>Model
+    {
+		 <# foreach(DbColumn column in DbHelper.GetDbColumns(config.ConnectionString, config.DbDatabase, entity.Name)){#>
+public <#= column.CSharpType#><# if(column.CommonType.IsValueType && column.IsNullable){#>?<#}#> <#=column.ColumnName#> { get; set; }
+        <#}#> 
+    }
+<#
+    EndNamespace(code);
+}
+
+fileManager.Process();
+
+#>
+<#+
+    public class config
+    {
+        public static readonly string ConnectionString="Data Source=(local);Initial Catalog=mvcDB;User ID=sa;Password=sjysql;";
+        public static readonly string DbDatabase="mvcDB";
+    }
+#>

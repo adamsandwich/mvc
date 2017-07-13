@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace mvc.IBLL
 {
-    public interface ISysRightBLL
+    public partial interface ISysRightBLL
     {
         List<permModel> GetPermission(string accountid, string controllor);
         List<P_Sys_GetRightByRoleAndModule_Result> GetRightByRoleAndModule(string roleId,string moduleId);

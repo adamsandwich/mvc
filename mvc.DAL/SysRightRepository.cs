@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace mvc.DAL
 {
-    public class SysRightRepository : ISysRightRepository, IDisposable
+    public partial class SysRightRepository : ISysRightRepository, IDisposable
     {
 
         /// <summary>

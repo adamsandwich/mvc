@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace mvc.DAL
 {
-    public class SysRoleRepository : IDisposable, ISysRoleRepository
+    public partial class SysRoleRepository : IDisposable, ISysRoleRepository
     {
 
         public IQueryable<SysRole> GetList(DBContainer db)

@@ -7,6 +7,7 @@ namespace mvc.Common
 {
     public static class Suggestion
     {
+        public static string NoDataChange { get { return "没有数据修改"; } }
         public static string PlaseChooseToOperatingRecords { get { return "请选择要操作的记录"; } }
         public static string AreYouLogOff { get { return "您确定要注销系统吗？"; } }
         public static string Cancel { get { return "取消"; } }

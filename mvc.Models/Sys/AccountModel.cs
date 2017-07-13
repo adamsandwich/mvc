@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace mvc.Models.Sys
 {
-    public class AccountModel
+    public partial class AccountModel
     {
         public string Id { get; set; }
         public string TrueName { get; set; }

@@ -7,7 +7,7 @@ using System.Data.Entity;
 
 namespace mvc.DAL
 {
-    public class SysSampleRepository : ISysSampleRepository, IDisposable
+    public partial class SysSampleRepository : ISysSampleRepository, IDisposable
     {
         /// <summary>
         /// 获取列表

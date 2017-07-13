@@ -10,7 +10,7 @@ namespace mvc.Models.Sys
     /// <summary>
     /// 异常处理类
     /// </summary>
-    public class SysExceptionModel
+    public partial class SysExceptionModel
     {
 
         [Display(Name = "ID")]

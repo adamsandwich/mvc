@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace mvc.DAL
 {
-    public class SysModuleOperateRepository : ISysModuleOperateRepository, IDisposable
+    public partial class SysModuleOperateRepository : ISysModuleOperateRepository, IDisposable
     {
 
         public IQueryable<SysModuleOperate> GetList(DBContainer db)

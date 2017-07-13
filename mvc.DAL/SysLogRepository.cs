@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace mvc.DAL
 {
-    public class SysLogRepository : IDisposable, ISysLogRepository
+    public partial class SysLogRepository : IDisposable, ISysLogRepository
     {
         /// <summary>
         /// 获取集合

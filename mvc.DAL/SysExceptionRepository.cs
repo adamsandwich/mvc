@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace mvc.DAL
 {
-    public class SysExceptionRepository : IDisposable, ISysExceptionRepository
+    public partial class SysExceptionRepository : IDisposable, ISysExceptionRepository
     {
         /// <summary>
         /// 获取集合

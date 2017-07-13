@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace mvc.Models.Sys
 {
-    public class SysModuleModel
+    public partial class SysModuleModel
     {
         [Display(Name = "ID")]
         public string Id { get; set; }

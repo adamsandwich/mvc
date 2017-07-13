@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 namespace mvc.Models.Sys
 {
-    public class SysSampleModel
+    public partial class SysSampleModel
     {
         [Display(Name = "ID")]
         public string Id { get; set; }

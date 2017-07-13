@@ -41,11 +41,11 @@ namespace mvc.Controllers
         /// <returns></returns>
         [SupportFilter(ActionName = "Index")]
         [HttpPost]
-        public JsonResult GetList(string id)
+        public JsonResult GetList(GridPager pager, string id)
         {
             if (id == null)
                 id = "0";
-            List<SysModuleModel> list = m_BLL.GetList(id);
+            List<SysModuleModel> list = m_BLL.GetList(ref pager, id);
             var json = from r in list
                        select new SysModuleModel()
                        {
@@ -61,7 +61,7 @@ namespace mvc.Controllers
                            CreatePerson = r.CreatePerson,
                            CreateTime = r.CreateTime,
                            IsLast = r.IsLast,
-                           state = (m_BLL.GetList(r.Id).Count > 0) ? "closed" : "open"
+                           state = (m_BLL.GetList(ref pager, r.Id).Count > 0) ? "closed" : "open"
                        };
 
 

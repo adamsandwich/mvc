@@ -1,0 +1,50 @@
+﻿<#@ template language="C#" debug="false" hostspecific="true"#>
+<#@ include file="EF6.Utility.CS.ttinclude"#>
+<#@ include file="../../mvc.Models/Common.ttinclude"#><#@ 
+ output extension=".cs"#>
+ <#
+
+const string inputFile = @"../../mvc.Models/DB.edmx";
+var textTransform = DynamicTextTransformation.Create(this);
+var code = new CodeGenerationTools(this);
+var ef = new MetadataTools(this);
+var typeMapper = new TypeMapper(code, ef, textTransform.Errors);
+var    fileManager = EntityFrameworkTemplateFileManager.Create(this);
+var itemCollection = new EdmMetadataLoader(textTransform.Host, textTransform.Errors).CreateEdmItemCollection(inputFile);
+var codeStringGenerator = new CodeStringGenerator(code, typeMapper, ef);
+
+if (!typeMapper.VerifyCaseInsensitiveTypeUniqueness(typeMapper.GetAllGlobalItems(itemCollection), inputFile))
+{
+    return string.Empty;
+}
+
+WriteHeader(codeStringGenerator, fileManager);
+
+foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection))
+{
+            fileManager.StartNewFile("I"+entity.Name + "BLL.cs");
+#>
+using System;
+using mvc.Common;
+using System.Collections.Generic;
+using mvc.Models<#=entity.Name.IndexOf("_")>0?"."+entity.Name.Substring(0,entity.Name.IndexOf("_")):".Sys" #>;
+namespace mvc.IBLL
+{
+    public partial interface I<#=entity.Name #>BLL
+    {
+        List<<#=entity.Name #>Model> GetList(ref GridPager pager, string queryStr);
+        bool Create(ref ValidationErrors errors, <#=entity.Name #>Model model);
+        bool Delete(ref ValidationErrors errors, string id);
+        bool Delete(ref ValidationErrors errors, string[] deleteCollection);
+        bool Edit(ref ValidationErrors errors, <#=entity.Name #>Model model);
+        <#=entity.Name #>Model GetById(string id);
+        bool IsExists(string id);
+    }
+<#
+            EndNamespace(code);
+        
+}
+
+fileManager.Process();
+
+#>

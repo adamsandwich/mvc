@@ -13,36 +13,19 @@ using System.Threading.Tasks;
 
 namespace mvc.BLL
 {
-    public class SysModuleOperateBLL : ISysModuleOperateBLL
+    public partial class SysModuleOperateBLL : ISysModuleOperateBLL
     {
-        [Dependency]
-        public ISysModuleOperateRepository m_Rep { get; set; }
         DBContainer db = new DBContainer();
-        public List<SysModuleOperateModel> GetList(ref GridPager pager, string mid)
+        public override List<SysModuleOperateModel> GetList(ref GridPager pager, string mid)
         {
 
-            IQueryable<SysModuleOperate> queryData = m_Rep.GetList(db).Where(a => a.ModuleId == mid);
+            IQueryable<SysModuleOperate> queryData = m_Rep.GetList().Where(a => a.ModuleId == mid);
             pager.totalRows = queryData.Count();
             queryData = LinqHelper.SortingAndPaging(queryData, pager.sort, pager.order, pager.page, pager.rows);
             return CreateModelList(ref queryData);
         }
-        private List<SysModuleOperateModel> CreateModelList(ref IQueryable<SysModuleOperate> queryData)
-        {
 
-            List<SysModuleOperateModel> modelList = (from r in queryData
-                                                     select new SysModuleOperateModel
-                                                     {
-                                                         Id = r.Id,
-                                                         Name = r.Name,
-                                                         KeyCode = r.KeyCode,
-                                                         ModuleId = r.ModuleId,
-                                                         IsValid = r.IsValid,
-                                                         Sort = r.Sort
-                                                     }).ToList();
-            return modelList;
-        }
-
-        public bool Create(ref ValidationErrors errors, SysModuleOperateModel model)
+        public override bool Create(ref ValidationErrors errors, SysModuleOperateModel model)
         {
             try
             {
@@ -59,7 +42,7 @@ namespace mvc.BLL
                 entity.ModuleId = model.ModuleId;
                 entity.IsValid = model.IsValid;
                 entity.Sort = model.Sort;
-                if (m_Rep.Create(entity) == 1)
+                if (m_Rep.Create(entity) == true)
                 {
                     return true;
                 }

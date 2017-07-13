@@ -3,6 +3,7 @@ using mvc.IBLL;
 using mvc.Models;
 using Microsoft.Practices.Unity;
 using mvc.DAL;
+using mvc.Models.Sys;
 
 namespace mvc
 {
@@ -17,11 +18,11 @@ namespace mvc
         /// <param name="mes">操作信息</param>
         /// <param name="result">结果</param>
         /// <param name="type">类型</param>
-        /// <param name="module">操作模块</param>
+        /// <param name="module">操作模块</param> 
         public static void WriteServiceLog(string oper, string mes, string result, string type, string module)
         {
-
-
+            ValidationErrors errors = new ValidationErrors();
+            SysLogRepository Rep = new SysLogRepository(new DBContainer());
             SysLog entity = new SysLog();
             entity.Id = ResultHelper.NewId;
             entity.Operator = oper;
@@ -30,10 +31,7 @@ namespace mvc
             entity.Type = type;
             entity.Module = module;
             entity.CreateTime = ResultHelper.NowTime;
-            using (SysLogRepository logRepository = new SysLogRepository())
-            {
-                logRepository.Create(entity);
-            }
+            Rep.Create(entity);
         }
     }
 }

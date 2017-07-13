@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace mvc.Models.Sys
 {
-    public class SysRightOperateModel
+    public partial class SysRightOperateModel
     {
         public string Id { get; set; }
         public string RightId { get; set; }

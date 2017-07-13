@@ -13,30 +13,17 @@ using System.Threading.Tasks;
 
 namespace mvc.BLL
 {
-    public class SysUserBLL :  BaseBLL, ISysUserBLL
+    public partial class SysUserBLL :  ISysUserBLL
     {
+        DBContainer db = new DBContainer();
         [Dependency]
         public ISysRightRepository sysRightRepository { get; set; }
         public List<permModel> GetPermission(string accountid, string controller)
         {
             return sysRightRepository.GetPermission(accountid, controller);
         }
-        [Dependency]
-        public ISysUserRepository m_Rep { get; set; }
-
-        public List<SysUserModel> GetList(ref GridPager pager, string queryStr)
-        {
-
-            IQueryable<SysUser> queryData = m_Rep.GetList(db);
-            if (!string.IsNullOrWhiteSpace(queryStr))
-            {
-                queryData = queryData.Where(a => a.UserName.Contains(queryStr) || a.TrueName.Contains(queryStr));
-            }
-            pager.totalRows = queryData.Count();
-            queryData = LinqHelper.SortingAndPaging(queryData, pager.sort, pager.order, pager.page, pager.rows);
-            return CreateModelList(ref queryData);
-        }
-        private List<SysUserModel> CreateModelList(ref IQueryable<SysUser> queryData)
+        
+        public override List<SysUserModel> CreateModelList(ref IQueryable<SysUser> queryData)
         {
 
             List<SysUserModel> modelList = (from r in queryData
@@ -80,7 +67,7 @@ namespace mvc.BLL
             return modelList;
         }
 
-        public bool Create(ref ValidationErrors errors, SysUserModel model)
+        public override bool Create(ref ValidationErrors errors, SysUserModel model)
         {
             try
             {
@@ -124,7 +111,7 @@ namespace mvc.BLL
                 entity.TrueName = model.TrueName;
                 entity.UserName = model.UserName;
                 entity.Village = model.Village;
-                if (m_Rep.Create(entity) == 1)
+                if (m_Rep.Create(entity) == true)
                 {
                     return true;
                 }
@@ -142,7 +129,7 @@ namespace mvc.BLL
             }
         }
 
-        public bool Delete(ref ValidationErrors errors, string id)
+        public override bool Delete(ref ValidationErrors errors, string id)
         {
             try
             {
@@ -194,7 +181,7 @@ namespace mvc.BLL
             }
         }
         */
-        public bool Edit(ref ValidationErrors errors, SysUserModel model)
+        public override bool Edit(ref ValidationErrors errors, SysUserModel model)
         {
             try
             {
@@ -238,7 +225,7 @@ namespace mvc.BLL
                 entity.UserName = model.UserName;
                 entity.Village = model.Village;
 
-                if (m_Rep.Edit(entity) == 1)
+                if (m_Rep.Edit(entity) == true)
                 {
                     return true;
                 }
@@ -256,7 +243,7 @@ namespace mvc.BLL
             }
         }
 
-        public bool IsExists(string id)
+        public override bool IsExists(string id)
         {
             if (db.SysUser.SingleOrDefault(a => a.Id == id) != null)
             {
@@ -265,7 +252,7 @@ namespace mvc.BLL
             return false;
         }
 
-        public SysUserModel GetById(string id)
+        public override SysUserModel GetById(string id)
         {
             if (IsExist(id))
             {

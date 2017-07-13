@@ -20,7 +20,7 @@ namespace mvc.Controllers
         // GET: /SysException/
         [Dependency]
         public ISysExceptionBLL exceptionBLL { get; set; }
-
+        ValidationErrors errors = new ValidationErrors();
         public ActionResult Index()
         {
             return View();
@@ -28,7 +28,7 @@ namespace mvc.Controllers
 
         public JsonResult GetList(GridPager pager, string queryStr)
         {
-            List<SysException> list = exceptionBLL.GetList(ref pager, queryStr);
+            List<SysExceptionModel> list = exceptionBLL.GetList(ref pager, queryStr);
             var json = new
             {
                 total = pager.totalRows,
@@ -53,7 +53,7 @@ namespace mvc.Controllers
         public ActionResult Details(string id)
         {
 
-            SysException entity = exceptionBLL.GetById(id);
+            SysExceptionModel entity = exceptionBLL.GetById(id);
             SysExceptionModel info = new SysExceptionModel()
             {
                 Id = entity.Id,
@@ -75,7 +75,7 @@ namespace mvc.Controllers
         {
             if (!string.IsNullOrWhiteSpace(id))
             {
-                if (exceptionBLL.Delete(id))
+                if (exceptionBLL.Delete(ref errors,id))
                 {
                     return Json(1, JsonRequestBehavior.AllowGet);
                 }

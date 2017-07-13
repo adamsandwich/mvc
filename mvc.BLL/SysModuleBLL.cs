@@ -13,18 +13,12 @@ using System.Threading.Tasks;
 
 namespace mvc.BLL
 {
-    public class SysModuleBLL : ISysModuleBLL
+    public partial class SysModuleBLL : ISysModuleBLL
     {
         [Dependency]
         public ISysModuleRepository m_Rep { get; set; }
         DBContainer db = new DBContainer();
 
-        public List<SysModuleModel> GetList(string parentId)
-        {
-            IQueryable<SysModule> queryData = null;
-            queryData = m_Rep.GetList(db).Where(a => a.ParentId == parentId).OrderBy(a => a.Sort);
-            return CreateModelList(ref queryData);
-        }
         private List<SysModuleModel> CreateModelList(ref IQueryable<SysModule> queryData)
         {
             List<SysModuleModel> modelList = (from r in queryData
@@ -78,7 +72,7 @@ namespace mvc.BLL
                 entity.CreatePerson = model.CreatePerson;
                 entity.CreateTime = model.CreateTime;
                 entity.IsLast = model.IsLast;
-                if (m_Rep.Create(entity) == 1)
+                if (m_Rep.Create(entity) == true)
                 {
                     //分配给角色
                     db.P_Sys_InsertSysRight();
@@ -149,7 +143,7 @@ namespace mvc.BLL
                 entity.Enable = model.Enable;
                 entity.IsLast = model.IsLast;
 
-                if (m_Rep.Edit(entity) == 1)
+                if (m_Rep.Edit(entity) == true)
                 {
                     return true;
                 }

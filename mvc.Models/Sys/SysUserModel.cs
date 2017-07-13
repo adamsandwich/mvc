@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace mvc.Models.Sys
 {
-    public class SysUserModel
+    public partial class SysUserModel
     {
         public string Flag;
 

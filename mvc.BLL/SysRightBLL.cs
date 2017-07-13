@@ -12,7 +12,7 @@ using System.Web;
 
 namespace mvc.BLL
 {
-    public class SysRightBLL:ISysRightBLL
+    public partial class SysRightBLL:ISysRightBLL
     {
         [Dependency]
         public ISysRightRepository m_Rep { get; set; }

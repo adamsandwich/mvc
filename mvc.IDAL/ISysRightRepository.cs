@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace mvc.IDAL
 {
-    public interface ISysRightRepository
+    public partial interface ISysRightRepository
     {
         List<permModel> GetPermission(string accountid, string controller);
         //更新

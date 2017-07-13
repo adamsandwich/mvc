@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace mvc.Models.Sys
 {
-    public class SysLogModel
+    public partial class SysLogModel
     {
 
 

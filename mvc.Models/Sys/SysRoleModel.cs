@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace mvc.Models.Sys
 {
-    public class SysRoleModel
+    public partial class SysRoleModel
     {
 
         public string Id { get; set; }

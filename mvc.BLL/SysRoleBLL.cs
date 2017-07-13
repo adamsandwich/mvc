@@ -13,15 +13,13 @@ using System.Threading.Tasks;
 
 namespace mvc.BLL
 {
-    public class SysRoleBLL : ISysRoleBLL
+    public partial class SysRoleBLL : ISysRoleBLL
     {
-        [Dependency]
-        public ISysRoleRepository m_Rep { get; set; }
         DBContainer db = new DBContainer();
-        public List<SysRoleModel> GetList(ref GridPager pager, string queryStr)
+        public override List<SysRoleModel> GetList(ref GridPager pager, string queryStr)
         {
 
-            IQueryable<SysRole> queryData = m_Rep.GetList(db);
+            IQueryable<SysRole> queryData = m_Rep.GetList();
             if (!string.IsNullOrWhiteSpace(queryStr))
             {
                 queryData = queryData.Where(a => a.Name.Contains(queryStr));
@@ -42,7 +40,7 @@ namespace mvc.BLL
                                         }).ToList();
             return model;
         }
-        private List<SysRoleModel> CreateModelList(ref IQueryable<SysRole> queryData)
+        public override List<SysRoleModel> CreateModelList(ref IQueryable<SysRole> queryData)
         {
             List<SysRoleModel> modelList = new List<SysRoleModel>();
             foreach (var r in queryData)
@@ -60,7 +58,7 @@ namespace mvc.BLL
             return modelList;
         }
 
-        public bool Create(ref ValidationErrors errors, SysRoleModel model)
+        public override bool Create(ref ValidationErrors errors, SysRoleModel model)
         {
             try
             {
@@ -76,7 +74,7 @@ namespace mvc.BLL
                 entity.Description = model.Description;
                 entity.CreateTime = model.CreateTime;
                 entity.CreatePerson = model.CreatePerson;
-                if (m_Rep.Create(entity) == 1)
+                if (m_Rep.Create(entity) == true)
                 {
                     //分配给角色
                     db.P_Sys_InsertSysRight();
@@ -98,7 +96,7 @@ namespace mvc.BLL
             }
         }
 
-        public bool Delete(ref ValidationErrors errors, string id)
+        public override bool Delete(ref ValidationErrors errors, string id)
         {
             try
             {
@@ -120,7 +118,7 @@ namespace mvc.BLL
         }
 
 
-        public bool Edit(ref ValidationErrors errors, SysRoleModel model)
+        public override bool Edit(ref ValidationErrors errors, SysRoleModel model)
         {
             try
             {
@@ -136,7 +134,7 @@ namespace mvc.BLL
                 entity.CreateTime = model.CreateTime;
                 entity.CreatePerson = model.CreatePerson;
 
-                if (m_Rep.Edit(entity) == 1)
+                if (m_Rep.Edit(entity) == true)
                 {
                     return true;
                 }
@@ -154,7 +152,7 @@ namespace mvc.BLL
             }
         }
 
-        public bool IsExists(string id)
+        public override bool IsExists(string id)
         {
             if (db.SysRole.SingleOrDefault(a => a.Id == id) != null)
             {
@@ -163,7 +161,7 @@ namespace mvc.BLL
             return false;
         }
 
-        public SysRoleModel GetById(string id)
+        public override SysRoleModel GetById(string id)
         {
             if (IsExist(id))
             {
