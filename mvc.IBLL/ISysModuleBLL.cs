@@ -11,6 +11,7 @@ namespace mvc.IBLL
 {
     public partial interface ISysModuleBLL
     {
+        List<SysModuleModel> GetList(string queryStr);
         List<SysModule> GetModuleBySystem(string parentId);
     }
 }

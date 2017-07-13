@@ -14,8 +14,6 @@ namespace mvc.BLL
 {
     public partial class SysRightBLL:ISysRightBLL
     {
-        [Dependency]
-        public ISysRightRepository m_Rep { get; set; }
         DBContainer db = new DBContainer();
         public List<permModel> GetPermission(string accountid, string controllor)
         {

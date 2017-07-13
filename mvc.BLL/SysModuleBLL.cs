@@ -13,16 +13,15 @@ using System.Threading.Tasks;
 
 namespace mvc.BLL
 {
-    public partial class SysModuleBLL : ISysModuleBLL
+    public partial class SysModuleBLL :ISysModuleBLL
     {
-        [Dependency]
-        public ISysModuleRepository m_Rep { get; set; }
         DBContainer db = new DBContainer();
-
-        private List<SysModuleModel> CreateModelList(ref IQueryable<SysModule> queryData)
+        public List<SysModuleModel> GetList(string parentId)
         {
+            IQueryable<SysModule> queryData = m_Rep.GetList();
+            queryData = queryData.Where(r => r.ParentId == parentId && r.Id != "0").OrderBy(r => r.Sort);
             List<SysModuleModel> modelList = (from r in queryData
-                                              select new SysModuleModel
+                                              select new SysModuleModel()
                                               {
                                                   Id = r.Id,
                                                   Name = r.Name,
@@ -36,18 +35,17 @@ namespace mvc.BLL
                                                   CreatePerson = r.CreatePerson,
                                                   CreateTime = r.CreateTime,
                                                   IsLast = r.IsLast
+
                                               }).ToList();
             return modelList;
         }
-
-
         public List<SysModule> GetModuleBySystem(string parentId)
         {
 
             return m_Rep.GetModuleBySystem(db, parentId).ToList();
         }
 
-        public bool Create(ref ValidationErrors errors, SysModuleModel model)
+        public override bool Create(ref ValidationErrors errors, SysModuleModel model)
         {
 
 
@@ -93,7 +91,7 @@ namespace mvc.BLL
 
 
         }
-        public bool Delete(ref ValidationErrors errors, string id)
+        public override bool Delete(ref ValidationErrors errors, string id)
         {
             try
             {
@@ -123,7 +121,7 @@ namespace mvc.BLL
             }
         }
 
-        public bool Edit(ref ValidationErrors errors, SysModuleModel model)
+        public override bool Edit(ref ValidationErrors errors, SysModuleModel model)
         {
             try
             {
@@ -158,32 +156,6 @@ namespace mvc.BLL
                 errors.Add(ex.Message);
                 ExceptionHander.WriteException(ex);
                 return false;
-            }
-        }
-
-        public SysModuleModel GetById(string id)
-        {
-            if (IsExist(id))
-            {
-                SysModule entity = m_Rep.GetById(id);
-                SysModuleModel model = new SysModuleModel();
-                model.Id = entity.Id;
-                model.Name = entity.Name;
-                model.EnglishName = entity.EnglishName;
-                model.ParentId = entity.ParentId;
-                model.Url = entity.Url;
-                model.Iconic = entity.Iconic;
-                model.Sort = entity.Sort;
-                model.Remark = entity.Remark;
-                model.Enable = entity.Enable;
-                model.CreatePerson = entity.CreatePerson;
-                model.CreateTime = entity.CreateTime;
-                model.IsLast = entity.IsLast;
-                return model;
-            }
-            else
-            {
-                return null;
             }
         }
         public bool IsExist(string id)

@@ -55,11 +55,11 @@ namespace mvc.Controllers
         //获取模组列表
         [SupportFilter(ActionName = "Index")]
         [HttpPost]
-        public JsonResult GetModelList(GridPager pager, string id)
+        public JsonResult GetModelList(string id)
         {
             if (id == null)
                 id = "0";
-            List<SysModuleModel> list = sysModuleBLL.GetList(ref pager,id);
+            List<SysModuleModel> list = sysModuleBLL.GetList(id);
             var json = from r in list
                        select new SysModuleModel()
                        {
@@ -75,7 +75,7 @@ namespace mvc.Controllers
                            CreatePerson = r.CreatePerson,
                            CreateTime = r.CreateTime,
                            IsLast = r.IsLast,
-                           state = (sysModuleBLL.GetList(ref pager,r.Id).Count > 0) ? "closed" : "open"
+                           state = (sysModuleBLL.GetList(r.Id).Count > 0) ? "closed" : "open"
                        };
 
 
