@@ -44,6 +44,9 @@ namespace mvc.Core
             container.RegisterType<ISysRoleRepository, SysRoleRepository>();
 
             container.RegisterType<ISysRightBLL, SysRightBLL>();
+
+            container.RegisterType<IJOBTestScoreBLL, JOBTestScoreBLL>();
+            container.RegisterType<IJOBTestScoreRepository, JOBTestScoreRepository>();
         }
     }
 }

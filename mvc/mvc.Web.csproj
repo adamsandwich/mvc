@@ -147,6 +147,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\DataUploadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SysExceptionController.cs" />
     <Compile Include="Controllers\SysLogController.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="Controllers\SysRoleController.cs" />
     <Compile Include="Controllers\SysSampleController.cs" />
     <Compile Include="Controllers\SysUserController.cs" />
+    <Compile Include="Controllers\UploadTestController.cs" />
     <Compile Include="Core\ExtendMvcHtml.cs" />
     <Compile Include="Core\LogHandler.cs" />
     <Compile Include="Core\SupportFilterAttribute.cs" />
@@ -844,6 +846,9 @@
     <Content Include="Views\SysRole\GetUserByRole.cshtml" />
     <Content Include="Views\SysUser\Details.cshtml" />
     <Content Include="Views\SysRole\Details.cshtml" />
+    <Content Include="Views\UploadTest\Index.cshtml" />
+    <Content Include="Views\Upload\Index.cshtml" />
+    <Content Include="Views\DataUpload\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

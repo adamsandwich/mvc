@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index_Layout.cshtml";
+}
+
+
+<form name="myForm" enctype="multipart/form-data">
+    <input type="file" name="file" id="file" />
+    <input type="button" value="上传" />
+</form>
+<div id="bar" class="easyui-progressbar" style="width:400px;"></div>
+
+<script type="text/javascript">
+
+    $(':button').click(function () {
+        debugger;
+        $.ajax({
+            url: '/Upload/upload',  //server script to process data
+            type: 'POST',
+            xhr: function () {  // custom xhr
+                myXhr = $.ajaxSettings.xhr();
+                if (myXhr.upload) { // check if upload property exists
+                    myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // for handling the progress of the upload
+                }
+                return myXhr;
+            },
+            
+            //Ajax事件
+            //beforeSend: beforeSendHandler,
+            //success: completeHandler,
+            //error: errorHandler,
+            // Form数据
+            //Options to tell JQuery not to process data or worry about content-type
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+    });
+
+
+    function progressHandlingFunction(e) {
+        if (e.lengthComputable) {
+            //$('progress').attr({ value: e.loaded, max: e.total });
+            $("#bar").progressbar('setValue', e.progress);
+        }
+    }
+</script>

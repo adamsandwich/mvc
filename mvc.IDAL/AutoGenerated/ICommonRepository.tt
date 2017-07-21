@@ -1,4 +1,5 @@
 ﻿<#@ template language="C#" debug="false" hostspecific="true"#>
+<#@ include file="EF6.Utility.CS.ttinclude"#>
 <#@ include file="../../mvc.Models/Common.ttinclude"#><#@ 
  output extension=".cs"#><#
 

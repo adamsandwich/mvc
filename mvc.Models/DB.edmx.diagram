@@ -20,6 +20,7 @@
         <AssociationConnector Association="DB.FK_SysModule_SysModule" />
         <AssociationConnector Association="DB.FK_SysModuleOperate_SysModule" />
         <AssociationConnector Association="DB.FK_SysRight_SysModule" />
+        <EntityTypeShape EntityType="DB.JOBTestScore" Width="1.5" PointX="8.375" PointY="8.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

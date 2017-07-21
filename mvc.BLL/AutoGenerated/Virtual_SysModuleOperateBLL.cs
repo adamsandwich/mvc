@@ -31,7 +31,7 @@ namespace mvc.BLL
             if (!string.IsNullOrWhiteSpace(queryStr))
             {
                 queryData = m_Rep.GetList(
-                                a=>a.Id.Contains(queryStr) 
+                                a=>a.Id.Contains(queryStr)
                                 || a.Name.Contains(queryStr)
                                 || a.KeyCode.Contains(queryStr)
                                 || a.ModuleId.Contains(queryStr)

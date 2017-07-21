@@ -1,0 +1,150 @@
+﻿@using mvc.Common;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index_Layout.cshtml";
+}
+
+<form name="myForm" enctype="multipart/form-data">
+    <input type="text" name="name" />
+    <input type="file" name="file" id="upload"/>
+    <input type="button" id="btn" value="submit"/>
+    <div id="bar" class="easyui-progressbar" style="width:400px;"></div>
+    <div style="margin:20px 0;">
+        <a href="#" class="easyui-linkbutton" onclick="start()">Start</a>
+    </div>
+</form>
+<div>
+    <label class="label" id="jindu" ></label>
+</div>
+
+<script type="text/javascript">
+    //创建xhr对象
+    function XHR() {
+        var xhr;
+        try { xhr = new XMLHttpRequest(); }
+        catch (e) {
+            var IEXHRVers = ["Msxml3.XMLHTTP", "Msxml2.XMLHTTP", "Microsoft.XMLHTTP"];
+            for (var i = 0, len = IEXHRVers.length; i < len; i++) {
+                try { xhr = new ActiveXObject(IEXHRVers[i]); }
+                catch (e) { continue; }
+            }
+        }
+        return xhr;
+    }
+    function start() {
+        var bar = document.getElementById("bar");
+        var file = document.getElementById("upload");
+        var form = new FormData();
+        form.append("file", file);
+        var xhr = XHR();
+        //open方法 创建一个新的http请求，并指定此请求的方法、URL以及验证信息(用户名/密码)
+        xhr.open("post", "/UploadTest/Fileupload", true);
+        //第一个参数是请求方式,一般用get与post方法,与form标签的method类似
+        //第二个参数是请求的URL
+        //第三个参数是请求是同步进行还是异步进行,true表示异步
+        //调用了open方法仅仅是传递了参数而已
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) { //4 数据接收完毕,通过responseBody和responseText获取完整的回应数据
+                alert(xhr.responseText);                    //200  一切正常
+                $("#bar").progressbar('setValue', response.progress);
+            }
+        };
+        xhr.send(form);//调用了send方法后才会发出请求
+        
+
+        /*
+        var value = $('#bar').progressbar('getValue');
+        if (value < 100) {
+            value += Math.floor(Math.random() * 10);
+            $('#bar').progressbar('setValue', value);
+            setTimeout(arguments.callee, 200);
+        }
+        */
+    };
+    /*
+    $('#btn').click(function () {
+    var img = document.myForm.img.files[0];
+    var fm = new FormData();
+    fm.append('img', img);
+    debugger;
+    $.ajax(
+        {
+            url: 'UploadTest/Fileupload',
+            type: 'post',
+            data: fm,
+            contentType: false, //禁止设置请求类型
+            processData: false, //禁止jquery对Data数据的处理,默认会处理
+            //禁止的原因是,FormData已经帮我们做了处理
+            success: function (result) {
+            //测试是否成功
+            //但需要你后端有返回值
+            alert(result);
+            }
+        }
+    );
+    });
+    */
+    /*
+    $('#btn').click(function () {
+        var formData = new FormData();
+        var name = $("input").val();
+        formData.append("file", $("#upload")[0].files[0]);
+        formData.append("name", name);
+        $.ajax({
+            url: 'UploadTest/Fileupload',
+            type: 'POST',
+            data: formData,
+            // 告诉jQuery不要去处理发送的数据
+            processData: false,
+            // 告诉jQuery不要去设置Content-Type请求头
+            contentType: false,
+            async:true,
+            beforeSend: function () {
+                console.log("正在进行，请稍候");
+            },
+            success: function (responseStr) {
+                if (responseStr.status === 0) {
+                    $("#jindu").text(responseStr.length);
+                    console.log("成功" + responseStr.length);
+                } else {
+                    console.log("失败");
+                }
+            },
+            error: function (responseStr) {
+                console.log("error");
+            }
+        });
+    });*/
+</script>
+<script type="text/javascript">
+
+    function updateMonitor(taskId, status) {
+        $("#" + taskId).html("Task [" + taskId + "]: " + status);
+    }
+
+    $(function () {
+        $("#btn").click(function (e) {
+            e.preventDefault();
+            $.post("Start", {}, function (taskId) {
+
+                // Init monitors
+                $("#monitors").append($("<p id='" + taskId + "'/>"));
+                updateMonitor(taskId, "Started");
+
+                // Periodically update monitors
+                var intervalId = setInterval(function () {
+                    $.post("Progress", { id: taskId }, function (progress) {
+                        if (progress >= 100) {
+                            updateMonitor(taskId, "Completed");
+                            clearInterval(intervalId);
+                        } else {
+                            updateMonitor(taskId, progress + "%");
+                        }
+                    });
+                }, 100);
+            });
+        });
+    });
+</script>
+
+<div id="monitors"></div>

@@ -48,6 +48,7 @@
     <Compile Include="GridPager.cs" />
     <Compile Include="JsonHandler.cs" />
     <Compile Include="LinqHelper.cs" />
+    <Compile Include="oleDBExcelFileReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResultHelper.cs" />
     <Compile Include="Suggestion.cs" />

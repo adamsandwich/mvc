@@ -36,6 +36,7 @@ namespace mvc.Models
         public virtual DbSet<SysSample> SysSample { get; set; }
         public virtual DbSet<SysUser> SysUser { get; set; }
         public virtual DbSet<SysModule> SysModule { get; set; }
+        public virtual DbSet<JOBTestScore> JOBTestScore { get; set; }
     
         public virtual ObjectResult<P_Sys_GetRightOperate_Result> P_Sys_GetRightOperate(string userId, string url)
         {

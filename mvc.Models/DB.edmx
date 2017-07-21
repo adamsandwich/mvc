@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DB.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="JOBTestScore">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="10" />
+          <Property Name="StudentId" Type="nchar" MaxLength="10" />
+          <Property Name="Score" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="SysException">
           <Key>
             <PropertyRef Name="Id" />
@@ -272,6 +281,7 @@
           <Parameter Name="userId" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="DBStoreContainer">
+          <EntitySet Name="JOBTestScore" EntityType="Self.JOBTestScore" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SysException" EntityType="Self.SysException" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SysLog" EntityType="Self.SysLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SysModule" EntityType="Self.SysModule" Schema="dbo" store:Type="Tables" />
@@ -377,8 +387,9 @@
           <Parameter Name="roleId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="P_Sys_GetUserByRoleId" ReturnType="Collection(DB.P_Sys_GetUserByRoleId_Result)">
-            <Parameter Name="RoleId" Mode="In" Type="String" />
+          <Parameter Name="RoleId" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="JOBTestScore" EntityType="DB.JOBTestScore" />
           </EntityContainer>
         <EntityType Name="SysException">
           <Key>
@@ -653,6 +664,15 @@
           <Property Type="String" Name="Attach" Nullable="true" MaxLength="200" />
           <Property Type="String" Name="flag" Nullable="false" MaxLength="50" />
         </ComplexType>
+        <EntityType Name="JOBTestScore">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="StudentId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Score" Type="Int32" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -889,6 +909,16 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="JOBTestScore">
+            <EntityTypeMapping TypeName="DB.JOBTestScore">
+              <MappingFragment StoreEntitySet="JOBTestScore">
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

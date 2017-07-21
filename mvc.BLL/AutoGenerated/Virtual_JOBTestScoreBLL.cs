@@ -19,30 +19,21 @@ using mvc.BLL.Core;
 using mvc.Models.Sys;
 namespace mvc.BLL
 {
-    public class Virtual_SysModuleBLL
+    public class Virtual_JOBTestScoreBLL
     {
         [Dependency]
-        public ISysModuleRepository m_Rep { get; set; }
+        public IJOBTestScoreRepository m_Rep { get; set; }
 
-        public virtual List<SysModuleModel> GetList(ref GridPager pager, string queryStr)
+        public virtual List<JOBTestScoreModel> GetList(ref GridPager pager, string queryStr)
         {
 
-            IQueryable<SysModule> queryData = null;
+            IQueryable<JOBTestScore> queryData = null;
             if (!string.IsNullOrWhiteSpace(queryStr))
             {
                 queryData = m_Rep.GetList(
-                                a=>a.Id.Contains(queryStr)
-                                || a.Name.Contains(queryStr)
-                                || a.EnglishName.Contains(queryStr)
-                                || a.ParentId.Contains(queryStr)
-                                || a.Url.Contains(queryStr)
-                                || a.Iconic.Contains(queryStr)
                                 
-                                || a.Remark.Contains(queryStr)
-                                
-                                || a.CreatePerson.Contains(queryStr)
-                                
-                                
+                                a=>a.Name.Contains(queryStr)
+                                || a.StudentId.Contains(queryStr)
                                 
                                 );
             }
@@ -55,55 +46,37 @@ namespace mvc.BLL
             queryData = LinqHelper.SortingAndPaging(queryData, pager.sort, pager.order, pager.page, pager.rows);
             return CreateModelList(ref queryData);
         }
-        public virtual List<SysModuleModel> CreateModelList(ref IQueryable<SysModule> queryData)
+        public virtual List<JOBTestScoreModel> CreateModelList(ref IQueryable<JOBTestScore> queryData)
         {
 
-            List<SysModuleModel> modelList = (from r in queryData
-                                              select new SysModuleModel
+            List<JOBTestScoreModel> modelList = (from r in queryData
+                                              select new JOBTestScoreModel
                                               {
                                                     Id = r.Id,
                                                     Name = r.Name,
-                                                    EnglishName = r.EnglishName,
-                                                    ParentId = r.ParentId,
-                                                    Url = r.Url,
-                                                    Iconic = r.Iconic,
-                                                    Sort = r.Sort,
-                                                    Remark = r.Remark,
-                                                    Enable = r.Enable,
-                                                    CreatePerson = r.CreatePerson,
-                                                    CreateTime = r.CreateTime,
-                                                    IsLast = r.IsLast,
-                                                    Version = r.Version,
+                                                    StudentId = r.StudentId,
+                                                    Score = r.Score,
           
                                               }).ToList();
 
             return modelList;
         }
 
-        public virtual bool Create(ref ValidationErrors errors, SysModuleModel model)
+        public virtual bool Create(ref ValidationErrors errors, JOBTestScoreModel model)
         {
             try
             {
-                SysModule entity = m_Rep.GetById(model.Id);
+                JOBTestScore entity = m_Rep.GetById(model.Id);
                 if (entity != null)
                 {
                     errors.Add(Suggestion.PrimaryRepeat);
                     return false;
                 }
-                entity = new SysModule();
+                entity = new JOBTestScore();
                                entity.Id = model.Id;
                 entity.Name = model.Name;
-                entity.EnglishName = model.EnglishName;
-                entity.ParentId = model.ParentId;
-                entity.Url = model.Url;
-                entity.Iconic = model.Iconic;
-                entity.Sort = model.Sort;
-                entity.Remark = model.Remark;
-                entity.Enable = model.Enable;
-                entity.CreatePerson = model.CreatePerson;
-                entity.CreateTime = model.CreateTime;
-                entity.IsLast = model.IsLast;
-                entity.Version = model.Version;
+                entity.StudentId = model.StudentId;
+                entity.Score = model.Score;
   
 
                 if (m_Rep.Create(entity))
@@ -175,11 +148,11 @@ namespace mvc.BLL
         
        
 
-        public virtual bool Edit(ref ValidationErrors errors, SysModuleModel model)
+        public virtual bool Edit(ref ValidationErrors errors, JOBTestScoreModel model)
         {
             try
             {
-                SysModule entity = m_Rep.GetById(model.Id);
+                JOBTestScore entity = m_Rep.GetById(model.Id);
                 if (entity == null)
                 {
                     errors.Add(Suggestion.Disable);
@@ -187,17 +160,8 @@ namespace mvc.BLL
                 }
                                               entity.Id = model.Id;
                 entity.Name = model.Name;
-                entity.EnglishName = model.EnglishName;
-                entity.ParentId = model.ParentId;
-                entity.Url = model.Url;
-                entity.Iconic = model.Iconic;
-                entity.Sort = model.Sort;
-                entity.Remark = model.Remark;
-                entity.Enable = model.Enable;
-                entity.CreatePerson = model.CreatePerson;
-                entity.CreateTime = model.CreateTime;
-                entity.IsLast = model.IsLast;
-                entity.Version = model.Version;
+                entity.StudentId = model.StudentId;
+                entity.Score = model.Score;
  
 
 
@@ -222,25 +186,16 @@ namespace mvc.BLL
 
       
 
-        public virtual SysModuleModel GetById(string id)
+        public virtual JOBTestScoreModel GetById(string id)
         {
             if (IsExists(id))
             {
-                SysModule entity = m_Rep.GetById(id);
-                SysModuleModel model = new SysModuleModel();
+                JOBTestScore entity = m_Rep.GetById(id);
+                JOBTestScoreModel model = new JOBTestScoreModel();
                                               model.Id = entity.Id;
                 model.Name = entity.Name;
-                model.EnglishName = entity.EnglishName;
-                model.ParentId = entity.ParentId;
-                model.Url = entity.Url;
-                model.Iconic = entity.Iconic;
-                model.Sort = entity.Sort;
-                model.Remark = entity.Remark;
-                model.Enable = entity.Enable;
-                model.CreatePerson = entity.CreatePerson;
-                model.CreateTime = entity.CreateTime;
-                model.IsLast = entity.IsLast;
-                model.Version = entity.Version;
+                model.StudentId = entity.StudentId;
+                model.Score = entity.Score;
  
                 return model;
             }
